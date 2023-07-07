@@ -1,11 +1,17 @@
+import Api400Error from "../../Error_handler/api400Error.js"
+import Api404Error from "../../Error_handler/api404Error.js"
+
 import user from "../Models/user.js"
 
 class NoteRepository {
     getAll() {
         const response = user.findAll().then(result => {
-            return [200, result]
+            if(result == null)
+                throw new Api404Error('users not found')
+            else
+                return result
         }).catch(error => {
-            return [404, error]
+            throw new Api400Error(error)
         })
 
         return response
@@ -13,9 +19,12 @@ class NoteRepository {
 
     getById(id) {
         const response = user.findByPk(id).then(result => {
-            return [200, result]
+            if(result == null)
+                throw new Api404Error(`users with id ${id} not found`)
+            else
+                return result
         }).catch(error => {
-            return [404, error]
+            throw new Api400Error (error)
         })
 
         return response
@@ -31,9 +40,9 @@ class NoteRepository {
             username: data.username,
             password: data.password
         }).then(() => {
-            return [201, 'User created successfully']
+            return 'User created successfully'
         }).catch((error) => {
-            return [400, error]
+            throw new Api400Error(error)
         })
         return response
     }
@@ -44,9 +53,9 @@ class NoteRepository {
                 id: id
             }
         }).then(() => {
-            return [200, "user updated successfully"]
+            return "user updated successfully"
         }).catch(error => {
-            return [400, error]
+            throw new Api400Error(error)
         })
 
         return response
@@ -58,9 +67,9 @@ class NoteRepository {
                 id: id
             }
         }).then(() => {
-            return [200, 'User deleted successfully']
+            return 'User deleted successfully'
         }).catch(error => {
-            return [400, error]
+            throw new Api400Error(error)
         })
         return response
     }
