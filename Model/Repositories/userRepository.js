@@ -1,5 +1,6 @@
 import Api400Error from "../../Error_handler/api400Error.js"
 import Api404Error from "../../Error_handler/api404Error.js"
+import Api500Error from "../../Error_handler/api500Error.js"
 
 import user from "../Models/user.js"
 
@@ -42,7 +43,7 @@ class NoteRepository {
         }).then(() => {
             return 'User created successfully'
         }).catch((error) => {
-            throw new Api400Error(error)
+            throw new Api500Error(error)
         })
         return response
     }

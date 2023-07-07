@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { logError, returnError } from "../Error_handler/errorHandler.js"
+import { returnError } from "../Error_handler/errorHandler.js"
 import noteController from "../Controller/noteController.js";
 import userController from "../Controller/userController.js";
 
@@ -13,5 +13,7 @@ router.get('/user/:id', userController.read)
 router.post('/user', userController.create)
 router.put('/user/:id', userController.update)
 router.delete('/user/:id', userController.delete)
+
+router.use(returnError)
 
 export default router
