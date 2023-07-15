@@ -1,21 +1,17 @@
-import mysql from "mysql2";
+import mysql from "mysql2/promise";
 import 'dotenv/config'
 
-function createDatabase() {
+async function createDatabase() {
     //Open the connection to mysql server
-    const connection = mysql.createConnection({
+    const connection = await mysql.createConnection({
         host: process.env.DB_HOST,
         user: process.env.DB_USERNAME,
         password: process.env.DB_PASSWORD
     })
 
     //create database statement
-    connection.query(
-        `CREATE DATABASE IF NOT EXISTS daily`,
-        function(err, result) {
-            console.log(result);
-            console.log(err)
-        }
+    await connection.execute(
+        `CREATE DATABASE IF NOT EXISTS daily`
     )
 
     //close connection
