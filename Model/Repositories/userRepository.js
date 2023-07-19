@@ -4,7 +4,7 @@ import Api500Error from "../../Error_handler/api500Error.js"
 
 import user from "../Models/user.js"
 
-class NoteRepository {
+class UserRepository {
     getAll() {
         const response = user.findAll().then(result => {
             if(result == null)
@@ -19,7 +19,11 @@ class NoteRepository {
     }
 
     getById(id) {
-        const response = user.findByPk(id).then(result => {
+        const response = user.findOne({
+            where: {
+                id: id
+            }
+        }).then(result => {
             if(result == null)
                 throw new Api404Error(`users with id ${id} not found`)
             else
@@ -76,4 +80,4 @@ class NoteRepository {
     }
 }
 
-export default new NoteRepository
+export default new UserRepository
