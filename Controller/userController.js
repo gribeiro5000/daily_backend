@@ -17,7 +17,7 @@ class UserController {
     async read(req, res, next) {
         try {
             const row = await userRepository.getById(req.params.id)
-            res.status(httpStatusCodes.OK).send(row)
+            console.log(res.status(httpStatusCodes.OK).send(row))
         } catch(error) {
             next(error)
         }

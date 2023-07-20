@@ -44,8 +44,8 @@ class UserRepository {
             city: data.city,
             username: data.username,
             password: data.password
-        }).then(() => {
-            return 'User created successfully'
+        }).then((response) => {
+            return response
         }).catch((error) => {
             throw new Api500Error(error)
         })
