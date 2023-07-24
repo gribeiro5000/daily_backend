@@ -3,7 +3,8 @@ const httpStatusCodes = {
     CREATED: 201,
     BAD_REQUEST: 400,
     NOT_FOUND: 404,
-    INTERNAL_SERVER: 500
+    INTERNAL_SERVER: 500,
+    UNAUTHORIZED: 401
 }
 
 export default httpStatusCodes

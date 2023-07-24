@@ -75,7 +75,7 @@ describe('update tests', () => {
 })
 
 describe('delete tests', () => {
-    it.only('should return status code 200', async () => {
+    it('should return status code 200', async () => {
         const user = await axios.post(`${url}/user`, {
             name: "nameTest",
             lastName: "lasNameTest",

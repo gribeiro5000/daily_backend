@@ -1,6 +1,7 @@
 import Api400Error from "../../Error_handler/api400Error.js"
 import Api404Error from "../../Error_handler/api404Error.js"
 import Api500Error from "../../Error_handler/api500Error.js"
+import Api401Error from "../../Error_handler/api401Error.js"
 
 import user from "../Models/user.js"
 
@@ -30,6 +31,23 @@ class UserRepository {
                 return result
         }).catch(error => {
             throw new Api400Error (error)
+        })
+
+        return response
+    }
+
+    getByUsername(username) {
+        const response = user.findOne({
+            where: {
+                username: username
+            }
+        }).then(result => {
+            if(result == null)
+                throw new Api404Error(`users with username ${username} not found`)
+            else
+                return result
+        }).catch(error => {
+            throw new Api404Error (error)
         })
 
         return response
