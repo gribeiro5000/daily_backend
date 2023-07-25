@@ -8,8 +8,11 @@ import checkAllFields from "../Business_rules/checkAllFields.js"
 
 const router = Router()
 
-router.get('/note', noteController.index)
-router.post('/note', noteController.store)
+router.get('/note/:id', authorization.verifyJWT, authorization.hasRoutePermission, noteController.readAll)
+router.get('/note/:id/:noteId', authorization.verifyJWT, authorization.hasRoutePermission, noteController.read)
+router.post('/note/:id', authorization.verifyJWT, authorization.hasRoutePermission, noteController.create)
+router.put('/note/:id/:noteId', authorization.verifyJWT, authorization.hasRoutePermission, noteController.update)
+router.delete('/note/:id/:noteId', authorization.verifyJWT, authorization.hasRoutePermission, noteController.delete)
 
 router.get('/user', authorization.verifyJWT, userController.readAll)
 router.get('/user/:id', authorization.verifyJWT, authorization.hasRoutePermission, userController.read)

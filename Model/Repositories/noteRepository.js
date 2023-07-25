@@ -1,31 +1,74 @@
+import Api400Error from "../../Error_handler/api400Error.js"
 import note from "../Models/note.js"
 
 class NoteRepository {
-    getAll() {
+    getAll(userId) {
+        const response = note.findAll({
+            where: {
+                UserId: userId
+            }
+        }).then(result => {
+            return result
+        }).catch(error => {
+            throw new Api400Error(error)
+        })
 
+        return response
     }
 
-    getById() {
+    getById(id) {
+        const response = note.findOne({
+            where: {
+                id: id
+            }
+        }).then(result => {
+            return result
+        }).catch(error => {
+            throw new Api400Error(error)
+        })
 
+        return response
     }
 
-    insert(data) {
+    insert(data, userId) {
         const response = note.create({
-            
-        }).then(() => {
-            return [200, 'Note created successful']
-        }).catch((error) => {
-            return [400, error]
+            annotation: data.annotation,
+            day: data.day,
+            UserId: userId
+        }).then(result => {
+            return result
+        }).catch(error => {
+            return error
         })
         return response
     }
 
-    update() {
+    update(data, id) {
+        const response = note.update(data, {
+            where: {
+                id: id
+            }
+        }).then(() => {
+            return 'note updated successfully'
+        }).catch(error => {
+            throw new Api400Error(error)
+        })
 
+        return response
     }
 
-    delete() {
+    delete(id) {
+        const response = note.destroy({
+            where: {
+                id: id
+            }
+        }).then(() => {
+            return 'Note deleted successfully'
+        }).catch(error => {
+            throw new Api400Error(error)
+        })
 
+        return response
     }
 }
 
